@@ -1,0 +1,23 @@
+.Board {
+  rotate: 45deg;
+}
+
+.Board tr {
+  height: 80px;
+}
+
+.Board td {
+  width: 80px;  
+}
+
+.Board th.left {
+  width: 160px;
+  text-align: right;
+}
+
+.Board th.right {
+  height: 160px;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  text-align: left;
+}

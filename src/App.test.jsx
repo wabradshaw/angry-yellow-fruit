@@ -7,3 +7,9 @@ test('renders the title', () => {
   const titleElement = screen.getByText(/guizz/i);
   expect(titleElement).toBeDefined();
 });
+
+test('renders the board', () => {
+  render(<App />);
+  const tableElement = screen.getByRole('table');
+  expect(tableElement.classList.contains('Board')).toBe(true);
+});
