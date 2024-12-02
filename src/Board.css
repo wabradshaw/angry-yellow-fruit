@@ -4,12 +4,30 @@ table.Board {
   margin-left: 100px;
 }
 
-.Board td:not(.Theme) {
-  width: 40px;  
-  height: 40px;
-  padding: 20px;
+.Board .Cell {
+  width: 80px;  
+  height: 80px;  
+  padding: 0px;
   border-right: 2px #5fcecf solid;
   border-bottom: 2px #ff61c6 solid;
+}
+
+.Board .Cell button {  
+  width: 80px;  
+  height: 80px;
+  padding: 20px;
+  border:0px;
+  background: none;
+  cursor:pointer
+}
+
+.Board .Cell:hover {  
+  background-color: #ff9900;
+}
+
+.Board .Cell button>div {
+  rotate: -45deg;
+  font-size:20px;
 }
 
 .Board .Theme {
@@ -41,10 +59,4 @@ table.Board {
   rotate: 180deg;
   text-align: left;
   background-color: #5fcecf;
-}
-
-.Board button {
-  rotate: -45deg;
-  height: 40px;
-  width: 40px;
 }

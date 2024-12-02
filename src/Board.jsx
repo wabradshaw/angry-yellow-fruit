@@ -15,9 +15,8 @@ function BoardHeader({word, direction}) {
 
 function Cell({value, callback}){
   return (
-    <td><button onClick={() => callback(value)}>{value + 1}</button></td>
+    <td className="Cell"><button onClick={() => callback(value)}><div>{value + 1}</div></button></td>
   );
-
 }
 
 function Board({scale, opinionsList, descriptionsList, themesList}) {
