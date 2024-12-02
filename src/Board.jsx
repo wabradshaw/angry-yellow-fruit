@@ -1,33 +1,101 @@
 import './Board.css';
+import { useState } from 'react';
 
-function Board() {
+function BoardHeader({word, direction}) {  
+  if (direction === 'left'){
+    return (
+      <th scope="col" className="left">{word}</th>
+    );
+  } else if (direction === 'right') {
+    return (
+      <th scope="row" className="right">{word}</th>
+    );
+  }  
+}
+
+function Cell({value, callback}){
+  return (
+    <td><button onClick={() => callback(value)}>{value + 1}</button></td>
+  );
+
+}
+
+function Board({scale, opinionsList, descriptionsList}) {
+  const initializeCardList = (initialList, count) => {
+    const available = [...initialList];
+    available.sort((a,b) => 0.5 - Math.random());
+  
+    const selected = [];
+    for(let i = 0; i < count; i++){
+      selected.push(available.pop());
+    }
+
+    return {
+      discard: [],
+      available: available,
+      selected: selected
+    }
+  }
+
+  const [opinions, setOpinions] = useState(initializeCardList(opinionsList, scale));
+  const [descriptions, setDescriptions] = useState(initializeCardList(descriptionsList, scale));
+  
+  const getRefreshedSpecificValue = (id, cardList) => {
+    const { discard, available, selected } = cardList;
+  
+    let newDiscard = [];
+    let newAvailable = [];
+
+    if (available.length < 1) {
+      newDiscard = [selected[id]];
+      newAvailable = [...discard];
+      newAvailable.sort((a,b) => 0.5 - Math.random());
+    } else {
+      newDiscard = [...discard, selected[id]];
+      newAvailable = [...available];
+    }
+  
+    const newSelected = [...selected];
+    newSelected[id] = newAvailable.pop();
+
+    return {
+      discard: newDiscard,
+      available: newAvailable,
+      selected: newSelected
+    }
+  }
+
+  const refreshValue = (value) => {
+    setOpinions(getRefreshedSpecificValue(Math.trunc(value / scale), opinions)); 
+    setDescriptions(getRefreshedSpecificValue(value % scale, descriptions)); 
+  }
+
   return (
     <table className="Board">
       <tbody>
         <tr>
           <td className="BlankCell"></td>
-          <th scope="col" className="right">Green</th>
-          <th scope="col" className="right">Big</th>
-          <th scope="col" className="right">Colourful</th>
+          {
+            descriptions.selected.map((description, index) => {
+              return (<BoardHeader word={description} direction="right" key={index}/>)
+            })
+          }
         </tr>
-        <tr>
-          <th className="left">Angry</th>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>  
-        <tr>
-          <th className="left">Helpful</th>
-          <td>4</td>
-          <td>5</td>
-          <td>6</td>
-        </tr>  
-        <tr>
-          <th className="left">Smug</th>
-          <td>7</td>
-          <td>8</td>
-          <td>9</td>
-        </tr>  
+        {
+          opinions.selected.map((opinion, rowIndex) => {
+            return (
+              <tr key={rowIndex}>
+                <BoardHeader word={opinion} direction="left"/>
+                {
+                  descriptions.selected.map((col, colIndex) => {
+                    const key = (scale * rowIndex) + colIndex;
+                    return (<Cell value={key} callback={refreshValue}  key={key}/>)
+                  })
+                }
+              </tr>
+            )
+          })
+        }
       </tbody>            
     </table>
   );

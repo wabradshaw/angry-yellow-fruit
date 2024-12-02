@@ -4,7 +4,7 @@ import App from './App';
 
 test('renders the title', () => {
   render(<App />);
-  const titleElement = screen.getByText(/guizz/i);
+  const titleElement = screen.getByText(/Gridpinions/i);
   expect(titleElement).toBeDefined();
 });
 
