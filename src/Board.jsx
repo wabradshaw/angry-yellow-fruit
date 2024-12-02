@@ -20,7 +20,7 @@ function Cell({value, callback}){
 
 }
 
-function Board({scale, opinionsList, descriptionsList}) {
+function Board({scale, opinionsList, descriptionsList, themesList}) {
   const initializeCardList = (initialList, count) => {
     const available = [...initialList];
     available.sort((a,b) => 0.5 - Math.random());
@@ -37,6 +37,7 @@ function Board({scale, opinionsList, descriptionsList}) {
     }
   }
 
+  const [themes, setThemes] = useState(initializeCardList(themesList, 1));
   const [opinions, setOpinions] = useState(initializeCardList(opinionsList, scale));
   const [descriptions, setDescriptions] = useState(initializeCardList(descriptionsList, scale));
   
@@ -74,7 +75,7 @@ function Board({scale, opinionsList, descriptionsList}) {
     <table className="Board">
       <tbody>
         <tr>
-          <td className="BlankCell"></td>
+          <td className="Theme"><h2>{themes.selected}</h2></td>
           {
             descriptions.selected.map((description, index) => {
               return (<BoardHeader word={description} direction="right" key={index}/>)

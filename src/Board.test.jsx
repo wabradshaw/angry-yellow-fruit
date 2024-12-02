@@ -1,66 +1,74 @@
 import { expect, test } from 'vitest';
-import { render, screen, getAllByRole, getByRole} from '@testing-library/react';
+import { render, screen, getAllByRole, getByRole, getByText} from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 
 import Board from './Board';
 import opinions from './cards/testOpinions.json';
 import descriptions from './cards/testDescriptions.json';
+import themes from './cards/testThemes.json';
 
 describe('renders the initial board state', () => { 
   test('renders the title', () => {
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const tableElement = screen.getByRole('table');
     expect(tableElement.classList.contains('Board')).toBe(true);
   });
 
+  test('renders the theme', () => {
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
+    const board = screen.getByRole('table');
+    const theme = getByText(board, /(MMM)|(NNN)|(OOO)/i);
+    expect(theme).toBeDefined();
+  });
+
   test('renders three columns if the scale is three', () => {
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
     expect(columnElements.length).toBe(3);
   });
 
   test('renders three rows if the scale is three', () => {
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
     expect(rowElements.length).toBe(3);
   });
 
-  test('renders ten cells if the scale is three, one of which is empty', () => {
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+  test('renders ten cells if the scale is three, one of which is the theme', () => {
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const cellElements = getAllByRole(board, 'cell');
     expect(cellElements.length).toBe(10);
-    expect(cellElements.filter((cell) => cell.className === 'BlankCell').length).toBe(1);
+    expect(cellElements.filter((cell) => cell.className === 'Theme').length).toBe(1);
   });
 
   test('renders five columns if the scale is five', () => {
-    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
     expect(columnElements.length).toBe(5);
   });
 
   test('renders five rows if the scale is five', () => {
-    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
     expect(rowElements.length).toBe(5);
   });
 
-  test('renders 26 cells if the scale is five, one of which is empty', () => {
-    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions}/>);
+  test('renders 26 cells if the scale is five, one of which is the theme', () => {
+    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const cellElements = getAllByRole(board, 'cell');
     expect(cellElements.length).toBe(26);
-    expect(cellElements.filter((cell) => cell.className === 'BlankCell').length).toBe(1);
+    expect(cellElements.filter((cell) => cell.className === 'Theme').length).toBe(1);
   });
 });
 
 describe('opinions handled correctly', () => {
   test('all five opinions are displayed on request', () => {
-    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions} themesList={themes} themesList={themes}/>);
     expect(screen.getByText('ZZZ')).toBeDefined();
     expect(screen.getByText('YYY')).toBeDefined();
     expect(screen.getByText('XXX')).toBeDefined();
@@ -69,7 +77,7 @@ describe('opinions handled correctly', () => {
   });
 
   test('three of five opinions are displayed when three are requested', () => {
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const opinionElements = screen.getAllByText(/(ZZZ)|(YYY)|(XXX)|(WWW)|(VVV)/i)
     expect(opinionElements.length).toBe(3);
   });
@@ -77,7 +85,7 @@ describe('opinions handled correctly', () => {
   test('clicking the first cell changes the first opinion', async () => {
     let validOpinions = ['ZZZ','YYY','XXX','WWW','VVV'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
 
@@ -94,7 +102,7 @@ describe('opinions handled correctly', () => {
   test('clicking the fourth cell in a 3x3  changes the second opinion', async () => {
     let validOpinions = ['ZZZ','YYY','XXX','WWW','VVV'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
 
@@ -111,7 +119,7 @@ describe('opinions handled correctly', () => {
   test('clicking the eighth cell in a 3x3 changes the third opinion', async () => {
     let validOpinions = ['ZZZ','YYY','XXX','WWW','VVV'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
 
@@ -128,7 +136,7 @@ describe('opinions handled correctly', () => {
   test('clicking the eighth cell in a 4x4 changes the second opinion', async () => {
     let validOpinions = ['ZZZ','YYY','XXX','WWW','VVV'];
 
-    render(<Board scale={4} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={4} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
 
@@ -145,7 +153,7 @@ describe('opinions handled correctly', () => {
   test('clicking the a cell twice changes it twice', async () => {
     let validOpinions = ['ZZZ','YYY','XXX','WWW','VVV'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
 
@@ -168,7 +176,7 @@ describe('opinions handled correctly', () => {
   test('clicking the a cell once the available list is empty means it can cycle through old values including the one that the cell originally had (but not the current one)', async () => {
     let validOpinions = ['ZZZ','YYY','XXX','WWW','VVV'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const columnElements = getAllByRole(board, 'columnheader');
 
@@ -205,7 +213,7 @@ describe('opinions handled correctly', () => {
 
 describe('descriptions handled correctly', () => {
   test('all five descriptions are displayed on request', () => {
-    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={5} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     expect(screen.getByText('AAA')).toBeDefined();
     expect(screen.getByText('BBB')).toBeDefined();
     expect(screen.getByText('CCC')).toBeDefined();
@@ -214,7 +222,7 @@ describe('descriptions handled correctly', () => {
   });
 
   test('three of five descriptions are displayed when three are requested', () => {
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const descriptionElements = screen.getAllByText(/(AAA)|(BBB)|(CCC)|(DDD)|(EEE)/i)
     expect(descriptionElements.length).toBe(3);
   });
@@ -222,7 +230,7 @@ describe('descriptions handled correctly', () => {
   test('clicking the first cell changes the first description', async () => {
     let validDescriptions = ['AAA','BBB','CCC','DDD','EEE'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
 
@@ -239,7 +247,7 @@ describe('descriptions handled correctly', () => {
   test('clicking the fifth cell in a 3x3 changes the second description', async () => {
     let validDescriptions = ['AAA','BBB','CCC','DDD','EEE'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
 
@@ -256,7 +264,7 @@ describe('descriptions handled correctly', () => {
   test('clicking the sixth cell in a 3x3 changes the third description', async () => {
     let validDescriptions = ['AAA','BBB','CCC','DDD','EEE'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
 
@@ -273,7 +281,7 @@ describe('descriptions handled correctly', () => {
   test('clicking the sixth cell in a 4x4 changes the second description', async () => {
     let validDescriptions = ['AAA','BBB','CCC','DDD','EEE'];
 
-    render(<Board scale={4} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={4} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
 
@@ -290,7 +298,7 @@ describe('descriptions handled correctly', () => {
   test('clicking the a cell twice changes it twice', async () => {
     let validDescriptions = ['AAA','BBB','CCC','DDD','EEE'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
 
@@ -313,7 +321,7 @@ describe('descriptions handled correctly', () => {
   test('clicking the a cell once the available list is empty means it can cycle through old descriptions including the one that the cell originally had  (but not the current one)', async () => {
     let validDescriptions = ['AAA','BBB','CCC','DDD','EEE'];
 
-    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions}/>);
+    render(<Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>);
     const board = screen.getByRole('table');
     const rowElements = getAllByRole(board, 'rowheader');
 
