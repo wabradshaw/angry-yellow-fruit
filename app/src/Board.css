@@ -1,16 +1,18 @@
 table.Board {
   rotate: 45deg;
-  border-collapse: collapse;
-  margin-left: 100px;  
+  margin-left: calc((100vw - 550px)/2); 
   background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  border: solid black 4px;
+  border-spacing: 6px;
 }
 
 .Board .Cell {
   width: 80px;  
   height: 80px;  
   padding: 0px;
-  border-right: 2px #5fcecf solid;
-  border-bottom: 2px #ff61c6 solid;
+  border: 4px black solid;
 }
 
 .Board .Cell button {  
@@ -23,19 +25,19 @@ table.Board {
 }
 
 .Board .Cell:hover {  
-  background-color: #ff9900;
+  background-color: #55d400ff;
 }
 
 .Board .Cell button>div {
   rotate: -45deg;
-  font-size:20px;
+  font-size:24px;
 }
 
 .Board .Theme {
   padding: 20px;
-  background-color: #ff9900;  
-  border: 5px white solid;
+  background-color: #55d400ff;
   text-align:center;
+  border: 4px black solid;
 }
 
 .Board .Theme>* {
@@ -44,14 +46,14 @@ table.Board {
 
 .Board th {
   padding: 20px;
-  border: 5px white solid;
 }
 
 .Board th.left {
   width: 120px;
   height: 40px;
   text-align: right;
-  background-color: #ff61c6;
+  background-color: #f5a400;
+  border: 4px black solid;
 }
 
 .Board th.right {
@@ -60,5 +62,6 @@ table.Board {
   writing-mode: vertical-rl;
   rotate: 180deg;
   text-align: left;
-  background-color: #5fcecf;
+  background-color: #ffff00ff;
+  border: 4px black solid;
 }
