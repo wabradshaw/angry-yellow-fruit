@@ -23,7 +23,7 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     showgrid="true"
+     showgrid="false"
      showguides="false"
      inkscape:zoom="2.6614285"
      inkscape:cx="-205.71659"
@@ -45,11 +45,11 @@
      id="layer3"
      inkscape:label="Text"
      style="display:inline"
-     transform="translate(119.03163,-86.020457)">
+     transform="translate(116.78215,-127.07351)">
     <g
        id="g170027"
-       transform="rotate(45,-48.446958,71.335411)"
-       inkscape:export-filename="..\app\public\logo192.png"
+       transform="rotate(45,-96.877644,94.577307)"
+       inkscape:export-filename="..\app\src\logo.svg"
        inkscape:export-xdpi="49.18261"
        inkscape:export-ydpi="49.18261">
       <rect
@@ -292,18 +292,5 @@
          x="3.9687505"
          y="153.45836" />
     </g>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer4"
-     inkscape:label="Layer 2"
-     transform="translate(119.03163,-86.020457)">
-    <rect
-       style="fill:#ffffff;stroke:none;stroke-width:0.585576;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:2.4;stroke-dasharray:none;paint-order:fill markers stroke"
-       id="rect145233-8"
-       width="146.23956"
-       height="42.636059"
-       x="-28.2493"
-       y="46.302082" />
   </g>
 </svg>
