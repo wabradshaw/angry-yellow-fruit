@@ -1,7 +1,8 @@
 table.Board {
   rotate: 45deg;
   border-collapse: collapse;
-  margin-left: 100px;
+  margin-left: 100px;  
+  background-color: #ffffff;
 }
 
 .Board .Cell {
@@ -34,6 +35,7 @@ table.Board {
   padding: 20px;
   background-color: #ff9900;  
   border: 5px white solid;
+  text-align:center;
 }
 
 .Board .Theme>* {
