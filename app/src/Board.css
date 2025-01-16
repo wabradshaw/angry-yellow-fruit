@@ -50,6 +50,7 @@ table.Board {
 
 .Board th {
   padding: 20px;
+  font-size: 22px;
 }
 
 .Board th.left {
@@ -73,7 +74,7 @@ table.Board {
 .RefreshTheme {
   position: absolute;
   top: 50px;
-  right: 50px;
+  right: calc(max(50px, 50vw - 400px));
 }
 
 .RefreshTheme > button {
@@ -87,6 +88,7 @@ table.Board {
   padding: 20px;
   text-align:center;
   border: 4px black solid;
+  border-radius: 20px;
 }
 
 .RefreshTheme > button:hover {

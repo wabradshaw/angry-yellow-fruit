@@ -7,3 +7,6 @@ html {
   text-align: left;
   padding: 20px;
 }
+.App .name {  
+  padding-left: calc(max(0px, 50vw - 640px));
+}
