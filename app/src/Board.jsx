@@ -70,34 +70,45 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
     setDescriptions(getRefreshedSpecificValue(value % scale, descriptions)); 
   }
 
+  const refreshTheme = () => {
+    setThemes(getRefreshedSpecificValue(0, themes)); 
+  }
+
   return (
-    <table className="Board">
-      <tbody>
-        <tr>
-          <td className="Theme"><h2>{themes.selected}</h2></td>
+    <>
+      <div className="RefreshTheme">
+        <button onClick={() => refreshTheme()}>
+          <h2>Change Theme</h2>
+        </button>
+      </div>
+      <table className="Board">
+        <tbody>
+          <tr>
+            <td className="Theme"><h2>{themes.selected}</h2></td>
+            {
+              descriptions.selected.map((description, index) => {
+                return (<BoardHeader word={description} direction="right" key={index}/>)
+              })
+            }
+          </tr>
           {
-            descriptions.selected.map((description, index) => {
-              return (<BoardHeader word={description} direction="right" key={index}/>)
+            opinions.selected.map((opinion, rowIndex) => {
+              return (
+                <tr key={rowIndex}>
+                  <BoardHeader word={opinion} direction="left"/>
+                  {
+                    descriptions.selected.map((col, colIndex) => {
+                      const key = (scale * rowIndex) + colIndex;
+                      return (<Cell value={key} callback={refreshValue} key={key}/>)
+                    })
+                  }
+                </tr>
+              )
             })
           }
-        </tr>
-        {
-          opinions.selected.map((opinion, rowIndex) => {
-            return (
-              <tr key={rowIndex}>
-                <BoardHeader word={opinion} direction="left"/>
-                {
-                  descriptions.selected.map((col, colIndex) => {
-                    const key = (scale * rowIndex) + colIndex;
-                    return (<Cell value={key} callback={refreshValue}  key={key}/>)
-                  })
-                }
-              </tr>
-            )
-          })
-        }
-      </tbody>            
-    </table>
+        </tbody>            
+      </table>
+    </>
   );
 }
 

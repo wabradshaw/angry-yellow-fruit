@@ -1,11 +1,15 @@
 table.Board {
   rotate: 45deg;
-  margin-left: calc((100vw - 550px)/2); 
+  margin-left: calc((100vw - 510px)/2); 
+  margin-top: calc((100vh - 510px)/2); 
   background-color: #ffffff;
   padding: 20px;
   border-radius: 20px;
   border: solid black 4px;
   border-spacing: 6px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .Board .Cell {
@@ -64,4 +68,32 @@ table.Board {
   text-align: left;
   background-color: #ffff00ff;
   border: 4px black solid;
+}
+
+.RefreshTheme {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+}
+
+.RefreshTheme > button {
+  width: 168px ;
+  height: 168px;
+  rotate: 45deg;
+  background-color: white;
+  border: 4px black solid;
+  cursor: pointer;
+  
+  padding: 20px;
+  text-align:center;
+  border: 4px black solid;
+}
+
+.RefreshTheme > button:hover {
+  background-color: #55d400ff;
+}
+
+.RefreshTheme > button > * {
+  rotate: -45deg;
+  font-size: 24px;
 }
