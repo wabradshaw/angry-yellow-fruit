@@ -35,11 +35,16 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
       selected: selected
     }
   }
+  const randomNumber = () => {
+    return Math.ceil(Math.random() * scale * scale);
+  }
 
   const [themes, setThemes] = useState(initializeCardList(themesList, 1));
   const [opinions, setOpinions] = useState(initializeCardList(opinionsList, scale));
   const [descriptions, setDescriptions] = useState(initializeCardList(descriptionsList, scale));
   
+  const [currentNumber, setCurrentNumber] = useState(randomNumber());
+
   const getRefreshedSpecificValue = (id, cardList) => {
     const { discard, available, selected } = cardList;
   
@@ -65,13 +70,17 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
     }
   }
 
+
+
   const refreshValue = (value) => {
     setOpinions(getRefreshedSpecificValue(Math.trunc(value / scale), opinions)); 
-    setDescriptions(getRefreshedSpecificValue(value % scale, descriptions)); 
+    setDescriptions(getRefreshedSpecificValue(value % scale, descriptions));
+    setCurrentNumber(randomNumber()); 
   }
 
   const refreshTheme = () => {
     setThemes(getRefreshedSpecificValue(0, themes)); 
+    setCurrentNumber(randomNumber());
   }
 
   return (
@@ -108,6 +117,12 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
           }
         </tbody>            
       </table>
+      <div className="ViewNumber">
+        <button>
+          <h2 className="unrevealed">View Number</h2>
+          <div className="revealed">{currentNumber}</div>
+        </button>
+      </div>
     </>
   );
 }

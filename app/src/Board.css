@@ -28,6 +28,7 @@ table.Board {
   cursor:pointer
 }
 
+.Board .Cell:focus-within,
 .Board .Cell:hover {  
   background-color: #55d400ff;
 }
@@ -91,6 +92,7 @@ table.Board {
   border-radius: 20px;
 }
 
+.RefreshTheme > button:focus,
 .RefreshTheme > button:hover {
   background-color: #55d400ff;
 }
@@ -98,4 +100,49 @@ table.Board {
 .RefreshTheme > button > * {
   rotate: -45deg;
   font-size: 24px;
+}
+
+.ViewNumber {
+  position: absolute;
+  bottom: 50px;
+  right: calc(max(50px, 50vw - 400px));
+}
+
+.ViewNumber > button {
+  width: 168px ;
+  height: 168px;
+  rotate: 45deg;
+  background-color: white;
+  border: 4px black solid;
+  cursor: pointer;
+  
+  padding: 20px;
+  text-align:center;
+  border: 4px black solid;
+  border-radius: 20px;
+}
+
+.ViewNumber > button:focus,
+.ViewNumber > button:hover {
+  background-color: #55d400ff;
+}
+
+.ViewNumber > button > * {
+  rotate: -45deg;
+  font-size: 24px;
+}
+
+
+.ViewNumber > button > .revealed {
+  display: none;
+}
+
+.ViewNumber > button:focus > .unrevealed,
+.ViewNumber > button:hover > .unrevealed {
+  display: none;
+}
+
+.ViewNumber > button:focus > .revealed,
+.ViewNumber > button:hover > .revealed {
+  display: block;
 }
