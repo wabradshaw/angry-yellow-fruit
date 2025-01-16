@@ -24,8 +24,8 @@ STROKE = 12
 RADIUS = 32
 TEXT_SIZE = 21
 
-OPINION_COLOUR = '#5fcecfff'
-DESCRIPTION_COLOUR = '#ff61c6ff'
+OPINION_COLOUR = '#f5a400ff'
+DESCRIPTION_COLOUR = '#ffff00ff'
 
 # Main
 puts "Start";
@@ -52,7 +52,7 @@ end
 
 Squib::Deck.new(cards: 1, width: ADJ_BLEED_WIDTH, height: ADJ_BLEED_HEIGHT) do
   background color: 'white'
-  png file: 'opinion.png', crop_corner_radius: RADIUS*5, width: ADJ_SAFE_WIDTH, height: ADJ_SAFE_HEIGHT, x: (ADJ_BLEED_WIDTH - ADJ_SAFE_WIDTH)/2, y: (ADJ_BLEED_HEIGHT - ADJ_SAFE_HEIGHT)/2
+  png file: 'opinion.png', crop_corner_radius: RADIUS, crop_width: ADJ_SAFE_WIDTH, crop_height: ADJ_SAFE_HEIGHT, x: (ADJ_BLEED_WIDTH - ADJ_SAFE_WIDTH)/2, y: (ADJ_BLEED_HEIGHT - ADJ_SAFE_HEIGHT)/2
   save_png dir: '_opinions', prefix: '', count_format: 'back'
 end
 
