@@ -38,13 +38,13 @@ table.Board {
 }
 
 .Board .Theme {
-  padding: 20px;
   background-color: #55d400ff;
   text-align:center;
   border: 4px black solid;
 }
 
 .Board .Theme>* {
+  margin: 0px;
   rotate: -45deg;
 }
 
