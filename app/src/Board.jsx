@@ -85,11 +85,6 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
 
   return (
     <>
-      <div className="RefreshTheme">
-        <button onClick={() => refreshTheme()}>
-          <h2>Change Theme</h2>
-        </button>
-      </div>
       <table className="Board">
         <tbody>
           <tr>
@@ -117,6 +112,11 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
           }
         </tbody>            
       </table>
+      <div className="RefreshTheme">
+        <button onClick={() => refreshTheme()}>
+          <h2>Change Theme</h2>
+        </button>
+      </div>
       <div className="ViewNumber">
         <button>
           <h2 className="unrevealed">View Number</h2>

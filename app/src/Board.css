@@ -74,8 +74,8 @@ table.Board {
 
 .RefreshTheme {
   position: absolute;
-  top: 50px;
-  right: calc(max(50px, 50vw - 400px));
+  bottom: 50px;
+  left: calc(max(50px, 50vw - 400px));
 }
 
 .RefreshTheme > button {
