@@ -1,7 +1,7 @@
 html {
   min-height: 100%;
   min-width: 100%;
-  background-image: url('background.png');  
+  background-image: url('/angry-yellow-fruit/background.png');  
 }
 .App {
   text-align: left;
