@@ -8,7 +8,8 @@ function App() {
   return (
     <div className="App">
       <div className="name">
-        <img src="/angry-yellow-fruit/name.png"/>
+        <img className="name-large" src="/angry-yellow-fruit/name.png"/>
+        <img className="name-small" src="/angry-yellow-fruit/name-long.png"/>
       </div>
       <Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes}/>      
     </div>

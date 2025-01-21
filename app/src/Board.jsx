@@ -112,16 +112,18 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
           }
         </tbody>            
       </table>
-      <div className="RefreshTheme">
-        <button onClick={() => refreshTheme()}>
-          <h2>Change Theme</h2>
-        </button>
-      </div>
-      <div className="ViewNumber">
-        <button>
-          <h2 className="unrevealed">View Number</h2>
-          <div className="revealed">{currentNumber}</div>
-        </button>
+      <div className="DiamondButtons">
+        <div className="RefreshTheme">
+          <button onClick={() => refreshTheme()}>
+            <h2>Change Theme</h2>
+          </button>
+        </div>
+        <div className="ViewNumber">
+          <button>
+            <h2 className="unrevealed">View Number</h2>
+            <div className="revealed">{currentNumber}</div>
+          </button>
+        </div>
       </div>
     </>
   );
