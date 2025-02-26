@@ -1,24 +1,13 @@
 table.Board {
   rotate: 45deg;
-  margin-left: calc((100% - 510px)/2);   
   background-color: #ffffff;
-  padding: 20px;
-  border-radius: 20px;
-  border: solid black 4px;
-  border-spacing: 6px;
 }
 
 .Board .Cell {
-  width: 80px;  
-  height: 80px;  
   padding: 0px;
-  border: 4px black solid;
 }
 
 .Board .Cell button {  
-  width: 80px;  
-  height: 80px;
-  padding: 20px;
   border:0px;
   background: none;
   cursor:pointer
@@ -31,13 +20,11 @@ table.Board {
 
 .Board .Cell button>div {
   rotate: -45deg;
-  font-size:24px;
 }
 
 .Board .Theme {
   background-color: #55d400ff;
   text-align:center;
-  border: 4px black solid;
 }
 
 .Board .Theme>* {
@@ -45,55 +32,193 @@ table.Board {
   rotate: -45deg;
 }
 
-.Board th {
-  padding: 20px;
-  font-size: 22px;
-}
-
 .Board th.left {
-  width: 120px;
-  height: 40px;
   text-align: right;
   background-color: #f5a400;
-  border: 4px black solid;
 }
 
 .Board th.right {
-  width: 40px;
-  height: 120px;
   writing-mode: vertical-rl;
   rotate: 180deg;
   text-align: left;
   background-color: #ffff00ff;
-  border: 4px black solid;
 }
 
 .DiamondButtons {
-  max-width: 654px;
   display: flex;
   justify-content: space-between;
   margin-left: auto;
   margin-right: auto;
-  margin-top: -76px;
 }
 
 .DiamondButtons button {
-  width: 150px ;
-  height: 150px;
   rotate: 45deg;
   background-color: white;
-  border: 4px black solid;
   cursor: pointer;
-  
-  padding: 20px;
   text-align:center;
-  border: 4px black solid;
-  border-radius: 20px;
 }
 
 .DiamondButtons button > * {
   rotate: -45deg;
-  font-size: 24px;
+}
+
+@media (min-width: 720px) {
+  table.Board {
+    margin-left: calc((100% - 510px)/2);   
+    padding: 20px;
+    border-radius: 20px;
+    border: solid black 4px;
+    border-spacing: 6px;
+  }
+
+  .Board .Cell {
+    width: 80px;  
+    height: 80px;
+    border: 4px black solid;
+  }
+
+  .Board .Cell button {  
+    width: 80px;  
+    height: 80px;
+    padding: 20px;
+  }
+
+  .Board .Cell button>div {
+    font-size:24px;
+  }
+
+  .Board .Theme {
+    border: 4px black solid;
+  }
+
+  .Board th {
+    padding: 20px;
+    font-size: 22px;
+  }
+
+  .Board th.left {
+    width: 120px;
+    height: 40px;
+    border: 4px black solid;
+  }
+
+  .Board th.right {
+    width: 40px;
+    height: 120px;
+    border: 4px black solid;
+  }
+
+  .Theme h2 {
+    font-size: 22px;
+  }
+
+  .DiamondButtons {
+    max-width: 654px;
+    margin-top: -76px;
+  }
+
+  .DiamondButtons button {
+    width: 150px;
+    height: 150px;
+    padding: 20px;
+    border: 4px black solid;
+    border-radius: 20px;
+  }
+
+  .DiamondButtons button > * {
+    font-size: 24px;
+  }
+
+  @media (min-width: 1080px) {
+    table.Board {
+      margin-top: calc(max(-150px, (50vh - 550px))); 
+    }
+  }
+  
+  @media (max-width: 1079px) {
+    table.Board {
+      margin-top: 110px; 
+    }
+  }
+}
+
+@media (max-width: 719px) {
+  table.Board {
+    margin-left: calc((100% - 270.5px)/2);   
+    padding: 10px;
+    border-radius: 10px;
+    border: solid black 4px;
+  }
+
+  .Board .Cell {
+    width: 48px;  
+    height: 48px;
+    border: 1px black solid;
+  }
+
+  .Board .Cell button {  
+    width: 44px;  
+    height: 44px;
+    padding: 10px;
+  }
+
+  .Board .Cell button>div {
+    font-size:12px;
+  }
+
+  .Board .Theme {
+    border: 1px black solid;
+  }
+
+  .Board th {
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .Board th.left {
+    width: 60px;
+    height: 24px;
+    border: 1px black solid;
+  }
+
+  .Board th.right {
+    width: 24px;
+    height: 60px;
+    border: 1px black solid;
+  }
+
+  .Theme h2 {
+    font-size: 11px;
+  }
+
+  .DiamondButtons {
+    max-width: 327px;
+    margin-top: -38px;
+  }
+
+  .DiamondButtons button {
+    width: 75px;
+    height: 75px;
+    padding: 10px;
+    border: 2px black solid;
+    border-radius: 10px;
+  }
+
+  .DiamondButtons button > * {
+    font-size: 12px;
+  }
+
+  @media (min-width: 540px) {
+    table.Board {
+      margin-top: calc(max(-75px, (50vh - 275px))); 
+    }
+  }
+  
+  @media (max-width: 539px) {
+    table.Board {
+      margin-top: 55px; 
+    }
+  }
 }
 
 .RefreshTheme > button:focus,
@@ -118,16 +243,4 @@ table.Board {
 .ViewNumber > button:focus > .revealed,
 .ViewNumber > button:hover > .revealed {
   display: block;
-}
-
-@media (min-width: 1080px) {
-  table.Board {
-    margin-top: calc(max(-150px, (50vh - 550px))); 
-  }
-}
-
-@media (max-width: 1079px) {
-  table.Board {
-    margin-top: 110px; 
-  }
 }
