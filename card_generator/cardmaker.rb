@@ -40,6 +40,8 @@ Squib::Deck.new(cards: MAX_ADJECTIVES_COUNT, width: ADJ_BLEED_WIDTH, height: ADJ
   
   text str: opinion_data['Name'], width: ADJ_SAFE_WIDTH, height: ADJ_SAFE_HEIGHT, x: (ADJ_BLEED_WIDTH - ADJ_SAFE_WIDTH)/2, y: (ADJ_BLEED_HEIGHT - ADJ_SAFE_HEIGHT)/2, align: 'center', valign: 'middle', font_size: TEXT_SIZE, font: 'Atkinson Hyperlegible'
   save_png dir: '_opinions', prefix: '', count_format: opinion_data['Id']
+  rect width: ADJ_BLEED_WIDTH, height: ADJ_BLEED_HEIGHT, x: 0, y: 0, stroke_width: 2, stroke_color: 'black'
+  save_sheet dir: '_sheets', prefix: 'opinions', rows: 8, columns: 4
 end
 
 Squib::Deck.new(cards: MAX_ADJECTIVES_COUNT, width: ADJ_BLEED_WIDTH, height: ADJ_BLEED_HEIGHT) do
@@ -48,6 +50,8 @@ Squib::Deck.new(cards: MAX_ADJECTIVES_COUNT, width: ADJ_BLEED_WIDTH, height: ADJ
   
   text str: descriptions_data['Name'], width: ADJ_SAFE_WIDTH, height: ADJ_SAFE_HEIGHT, x: (ADJ_BLEED_WIDTH - ADJ_SAFE_WIDTH)/2, y: (ADJ_BLEED_HEIGHT - ADJ_SAFE_HEIGHT)/2, align: 'center', valign: 'middle', font_size: TEXT_SIZE, font: 'Atkinson Hyperlegible'
   save_png dir: '_desc', prefix: '', count_format: descriptions_data['Id']
+  rect width: ADJ_BLEED_WIDTH, height: ADJ_BLEED_HEIGHT, x: 0, y: 0, stroke_width: 2, stroke_color: 'black'
+  save_sheet dir: '_sheets', prefix: 'descs', rows: 8, columns: 4
 end
 
 Squib::Deck.new(cards: 1, width: ADJ_BLEED_WIDTH, height: ADJ_BLEED_HEIGHT) do
@@ -90,7 +94,9 @@ Squib::Deck.new(cards: MAX_THEMES_COUNT, width: THM_BLEED_WIDTH, height: THM_BLE
   text str: themes_data['Name'], width: text_width, height: ADJ_SAFE_HEIGHT, x: text_angle_offset, y: height_down - text_angle_offset, fill_color: 'white', angle: '-45deg', stroke_width: 0, align: 'center', valign: 'middle', font_size: TEXT_SIZE, font: 'Atkinson Hyperlegible'
 
   #save_png range: front_range, dir: '_themes', prefix: "", count_format: themes_data['Id']
-  save_png range: back_range, dir: '_themes', prefix: "", count_format: themes_data['Id'], rotate: :clockwise
+  save_png range: back_range, dir: '_themes', prefix: "", count_format: themes_data['Id'], rotate: :clockwise  
+  rect width: THM_BLEED_WIDTH, height: THM_BLEED_WIDTH, x: 0, y: 0, stroke_width: 2, stroke_color: 'black'
+  save_sheet dir: '_sheets', prefix: 'themes', rows: 6, columns: 4
 end
 
 puts "Done";
