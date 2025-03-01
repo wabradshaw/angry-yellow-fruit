@@ -13,7 +13,6 @@ table.Board {
   cursor:pointer
 }
 
-.Board .Cell:focus-within,
 .Board .Cell:hover {  
   background-color: #55d400ff;
 }
@@ -42,6 +41,14 @@ table.Board {
   rotate: 180deg;
   text-align: left;
   background-color: #ffff00ff;
+}
+
+.Board th {  
+  cursor: pointer;
+}
+
+.Board th:hover {  
+  background-color: #55d400ff;
 }
 
 .DiamondButtons {
@@ -221,12 +228,10 @@ table.Board {
   }
 }
 
-.RefreshTheme > button:focus,
 .RefreshTheme > button:hover {
   background-color: #55d400ff;
 }
 
-.ViewNumber > button:focus,
 .ViewNumber > button:hover {
   background-color: #55d400ff;
 }

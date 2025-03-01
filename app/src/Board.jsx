@@ -1,14 +1,14 @@
 import './Board.css';
 import { useState } from 'react';
 
-function BoardHeader({word, direction}) {  
+function BoardHeader({word, direction, callback}) {  
   if (direction === 'left'){
     return (
-      <th scope="col" className="left">{word}</th>
+      <th scope="col" className="left" onClick={() => callback()}>{word}</th>
     );
   } else if (direction === 'right') {
     return (
-      <th scope="row" className="right">{word}</th>
+      <th scope="row" className="right" onClick={() => callback()}>{word}</th>
     );
   }  
 }
@@ -70,12 +70,18 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
     }
   }
 
-
-
   const refreshValue = (value) => {
-    setOpinions(getRefreshedSpecificValue(Math.trunc(value / scale), opinions)); 
-    setDescriptions(getRefreshedSpecificValue(value % scale, descriptions));
+    refreshOpinions(Math.trunc(value / scale)); 
+    refreshDescriptions(value % scale);
     setCurrentNumber(randomNumber()); 
+  }
+
+  const refreshOpinions = (value) => {
+    setOpinions(getRefreshedSpecificValue(value, opinions));  
+  }
+
+  const refreshDescriptions = (value) => {
+    setDescriptions(getRefreshedSpecificValue(value, descriptions));  
   }
 
   const refreshTheme = () => {
@@ -90,8 +96,8 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
           <tr>
             <td className="Theme"><h2>{themes.selected}</h2></td>
             {
-              descriptions.selected.map((description, index) => {
-                return (<BoardHeader word={description} direction="right" key={index}/>)
+              descriptions.selected.map((description, colIndex) => {
+                return (<BoardHeader word={description} direction="right" key={colIndex} callback={() => refreshDescriptions(colIndex)}/>)
               })
             }
           </tr>
@@ -99,7 +105,7 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
             opinions.selected.map((opinion, rowIndex) => {
               return (
                 <tr key={rowIndex}>
-                  <BoardHeader word={opinion} direction="left"/>
+                  <BoardHeader word={opinion} direction="left" callback={() => refreshOpinions(rowIndex)}/>
                   {
                     descriptions.selected.map((col, colIndex) => {
                       const key = (scale * rowIndex) + colIndex;
