@@ -118,8 +118,4 @@
         flex: 1;
         padding: 15px;
     }
-
-    .site-wrapper:has(.homepage) #header {
-        display: none !important;
-    }
 }
