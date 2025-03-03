@@ -3,26 +3,3 @@ html {
   min-width: 100%;
   background-image: url('/angry-yellow-fruit/background.png');  
 }
-.App {
-  text-align: left;
-  padding: 20px;
-}
-.App .name {  
-  padding-left: calc(max(0px, 50vw - 640px));
-}
-
-@media (min-width: 1080px) {
-  .App .name .name-small {
-    display: none;
-  }
-}
-
-@media (max-width: 1079px) {
-  .App .name .name-large {
-    display: none;
-  }
-
-  .App .name .name-small {
-    width: calc(100vw - 40px);
-  }
-}

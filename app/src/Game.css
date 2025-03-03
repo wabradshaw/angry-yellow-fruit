@@ -1,0 +1,23 @@
+.Game {
+  text-align: left;
+  padding: 20px;
+}
+.Game .name {  
+  padding-left: calc(max(0px, 50vw - 640px));
+}
+
+@media (min-width: 1080px) {
+  .Game .name .name-small {
+    display: none;
+  }
+}
+
+@media (max-width: 1079px) {
+  .Game .name .name-large {
+    display: none;
+  }
+
+  .Game .name .name-small {
+    width: calc(100vw - 40px);
+  }
+}
