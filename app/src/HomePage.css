@@ -1,0 +1,114 @@
+.homepage {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    font-family: montserrat;
+    box-sizing: border-box;
+}
+
+.blurb {
+    border: 4px solid black;
+    border-radius: 20px;
+    background-color: #fffffff6;
+
+    flex: 4;
+    padding: 50px;
+    box-sizing: border-box;
+    font-size: 24px;
+    line-height: 1.5;
+    text-align:justify;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home-navigation {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px;
+}
+
+.home-navigation > button {    
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 24px;
+    cursor: pointer;
+    border: 4px solid black;
+    transition: 0.3s ease-in-out;
+}
+
+.key-button {
+    font-weight: bolder;
+    flex: 2;
+    padding: 20px;
+}
+
+.secondary-button {
+    flex: 1;
+    padding: 5px;
+}
+
+#play-button {
+    background-color: #55d400ff;
+    font-size: 28px;
+}
+
+#how-to-play-button {
+    background-color: #f5a400;
+}
+
+#sell-button {
+    background-color: #ffff00ff;
+}
+
+.home-navigation > button:hover {
+    background-color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1240px) and (min-width: 769px) {
+    .blurb {
+        font-size: 18px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .homepage {
+        flex-direction: column-reverse;
+        text-align: center;
+        align-items: center;
+    }
+
+    .blurb {
+        flex: none;
+        width: 90%;
+    
+        flex: 4;
+        padding: 20px;
+        box-sizing: border-box;
+        font-size: 18px;
+        line-height: 1.5;
+        text-align:justify;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .home-navigation {
+        flex: none;
+        width: 90%;
+        gap: 10px;
+    }
+
+    .home-navigation > button {   
+        font-size: 18px;
+    }
+
+    #play-button {   
+        font-size: 20px;
+    }
+}
