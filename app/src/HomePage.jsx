@@ -16,13 +16,13 @@ function HomePage() {
             </p>
         </div>
         <div className="home-navigation">
-            <button id="how-to-play-button" className="key-button">
+            <button id="how-to-play-button" className="secondary-button">
                 How to Play
             </button>
             <button id="play-button" className="key-button" onClick={() => navigate("/play")}>
                 Play
             </button>
-            <button id="sell-button" className="secondary-button">
+            <button id="sell-button" className="secondary-button" onClick={() => window.open("ayf-sell-sheet.pdf", "_blank")}>
                 Sell Sheet
             </button>
         </div>
