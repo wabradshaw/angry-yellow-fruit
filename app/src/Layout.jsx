@@ -2,7 +2,7 @@ import './Layout.css';
 
 import { Outlet, Link } from "react-router-dom";
 
-function Layout() {  
+function Layout() {
   return (
     <div className="site-wrapper">
       <div id="header">
