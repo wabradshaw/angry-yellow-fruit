@@ -71,39 +71,41 @@
 }
 
 .home-navigation > button:hover {
-    background-color: white;
+    background-color: white !important;
 }
 
 /* Responsive Design */
 @media (max-width: 1240px){
-    .text-box {
+    .homepage .text-box {
         font-size: 18px;
-        padding: 20px;
+        padding: 0px 20px 0px 20px;
     }
 }
 
 @media (max-width: 768px) {
     .homepage {
-        flex-direction: column-reverse;
+        flex-direction: column;
         text-align: center;
         align-items: center;
     }
 
     .blurbs {
         flex: none;
-        width: 93%;
+        width: 95%;
     
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        gap: 10px;
     }
 
     .home-navigation {
         flex: none;
-        width: 93%;
+        width: 95%;
         gap: 10px;
-        padding: 0px 0px 20px 0px;
+        padding: 0px 0px 10px 0px;
     }
 
     .home-navigation > button {   

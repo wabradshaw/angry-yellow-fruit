@@ -6,13 +6,13 @@ function Layout() {
   return (
     <div className="site-wrapper">
       <div id="header">
-        <div class="header-l">
+        <div className="header-l">
           <Link to="" className="text-lg">Home</Link>
-          <div class="banner-separator"></div>
+          <div className="banner-separator"></div>
           <Link to="/play" className="text-lg">Play</Link>
-          <div class="banner-separator"></div>
+          <div className="banner-separator"></div>
           <Link to="/instructions" className="text-lg">Rules</Link>
-          <div class="banner-separator"></div>
+          <div className="banner-separator"></div>
           <a href="https://www.wabradshaw.com/privacypolicy.html">Privacy</a>
         </div>
 		  </div>

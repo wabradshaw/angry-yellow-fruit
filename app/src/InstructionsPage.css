@@ -9,15 +9,15 @@
 
 .instructions h1 {
     font-weight: 800;
-    font-size: 22px;    
+    font-size: 24px;    
 }
 
 .instructions h2 {
     font-weight: 800;
-    font-size: 20px;    
+    font-size: 24px;    
 }
 
-.text-box {
+.instructions .text-box {
     border: 4px solid black;
     border-radius: 20px;
     background-color: #fffffff6;
@@ -42,6 +42,7 @@
 
 .spacer > img {
     flex: 1;
+    max-width: 100%;
 }
 
 .left-column {
@@ -54,22 +55,19 @@
     display: none;
 }
 
-.key-button {
-    font-weight: bolder;
-    flex: 2;
-    padding: 20px;
-}
-
-#play-button {
-    background-color: #55d400ff;
-    font-size: 28px;
-}
-
 /* Responsive Design */
 @media (max-width: 1240px){
-    .text-box {
+    .instructions .text-box {
         font-size: 18px;
-        padding: 20px;
+        padding: 0px 20px;
+    }
+
+    .instructions h1 {
+        font-size: 18px;
+    }
+
+    .instructions h2 {
+        font-size: 18px;
     }
 
     .spacer {

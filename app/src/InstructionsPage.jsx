@@ -9,13 +9,13 @@ function InstructionsPage() {
             <h2>3+ players</h2>
             <p>Designed for 3-6, but works well with big groups!</p>
             <h2>A way of guessing 1-9 per player</h2>
-            <p>A set of cards 1-9 is ideal. Whiteboards, notepads or holding up fingers works too.</p>
+            <p>A set of cards 1-9 each is ideal. Whiteboards, notepads or holding up fingers works too.</p>
         </div>
         <div className="spacer">
             <div className="left-column">
                 <div className="text-box">
                     <h1>SETUP</h1>           
-                    <p>The Angry Yellow Fruit board looks like this. Around the grid of 9 numbers, you have a theme card at the top, and three description cards on each side. One side has more factual descriptions, and the other side is more subjective.</p>
+                    <p>The Angry Yellow Fruit board looks like this. Around the grid of 9 numbers, you have a theme card at the top, and three description cards on each side. One side has physical descriptions, and the other side is more opinionated.</p>
                 </div>
                 <div className="text-box large-only"> 
                     <p>Each cell in the grid corresponds to two description cards. So <b>cell 8</b> on the grid corresponds to a <b>good, wide animal</b>.</p>
@@ -43,7 +43,7 @@ function InstructionsPage() {
         </div>
         <div className="text-box">
             <h1>RESET THE BOARD</h1>
-            <p>Once you've revealed the answer, swap the clue's two description cards for new cards. If you're playing on the app <b>click on the clue number to refresh the descriptions and generate a new random number</b>.</p>
+            <p>Once you've revealed the answer, swap the clue's two description cards for new cards. If you're playing on the app, <b>click on the clue number to refresh the descriptions and generate a new random number</b>.</p>
             <p>After all players have had a go using the theme (or you fancy a change), swap out the theme using the change theme button and start a new round.</p>
         </div>
     </div>    

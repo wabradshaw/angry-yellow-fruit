@@ -68,20 +68,25 @@
   padding-top: 20px;  
 }
 
-@media (min-width: 1080px) {
+.central-wrapper > .name .name-large {
+  margin-top: -45px;
+}
+
+@media (min-width: 1080px) and (min-height: 800px){
   .central-wrapper > .name .name-small {
     display: none;
   }
 }
 
-@media (max-width: 1079px) {
+@media (max-width: 1079px) or (max-height: 799px) {
   .central-wrapper > .name .name-large {
     display: none;
   }
 
   .central-wrapper > .name .name-small {
     padding: 0px 20px 0px 20px;
-    width: calc(100vw - 40px);
+    width: 100%;
+    box-sizing: border-box; 
   }
 }
 
