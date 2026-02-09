@@ -8,8 +8,14 @@
   }
 }
 
-@media (max-width: 1039px) or (max-height: 799px){
+@media ((max-width: 1039px) or (max-height: 799px)) and (orientation: portrait){
   .Game {
     margin-top: 120px;
+  }
+}
+
+@media ((max-width: 1039px) or (max-height: 799px)) and (orientation: landscape){
+  .Game {
+    margin-top: 10px;
   }
 }

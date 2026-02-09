@@ -228,6 +228,86 @@ table.Board {
   }
 }
 
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  table.Board {
+    margin-left: calc((100% - 270.5px)/2);   
+    padding: 10px;
+    border-radius: 10px;
+    border: solid black 4px;
+  }
+
+  .Board .Cell {
+    width: 48px;  
+    height: 48px;
+    border: 1px black solid;
+  }
+
+  .Board .Cell button {  
+    width: 44px;  
+    height: 44px;
+    padding: 10px;
+  }
+
+  .Board .Cell button>div {
+    font-size:12px;
+  }
+
+  .Board .Theme {
+    border: 1px black solid;
+  }
+
+  .Board th {
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .Board th.left {
+    width: 60px;
+    height: 24px;
+    border: 1px black solid;
+  }
+
+  .Board th.right {
+    width: 24px;
+    height: 60px;
+    border: 1px black solid;
+  }
+
+  .Theme h2 {
+    font-size: 11px;
+  }
+
+  .DiamondButtons {
+    max-width: 327px;
+    margin-top: -38px;
+  }
+
+  .DiamondButtons button {
+    width: 75px;
+    height: 75px;
+    padding: 10px;
+    border: 2px black solid;
+    border-radius: 10px;
+  }
+
+  .DiamondButtons button > * {
+    font-size: 12px;
+  }
+
+  @media (min-width: 540px) {
+    table.Board {
+      margin-top: calc(max(-75px, (50vh - 275px))); 
+    }
+  }
+  
+  @media (max-width: 539px) {
+    table.Board {
+      margin-top: 55px; 
+    }
+  }
+}
+
+
 .RefreshTheme > button:hover {
   background-color: #55d400ff;
 }

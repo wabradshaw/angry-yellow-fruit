@@ -55,11 +55,44 @@
     display: none;
 }
 
+.mode-spacer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.cards, .hands {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    flex: 1; /* Ensures equal width in two-column layout */
+    max-width: 500px; /* Prevents sections from getting too wide */
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.cards {
+    background-color: #ffff00ff;
+}
+
+.hands {
+    background-color: #f5a400;
+}
+
 /* Responsive Design */
 @media (max-width: 1240px){
     .instructions .text-box {
         font-size: 18px;
         padding: 0px 20px;
+    }
+
+    .instructions .text-box.image-final {
+        padding-bottom: 20px;
     }
 
     .instructions h1 {
