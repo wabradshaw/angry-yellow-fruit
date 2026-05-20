@@ -58,15 +58,50 @@ table.Board {
   margin-right: auto;
 }
 
-.DiamondButtons button {
+.DiamondButtons button,
+.DiamondButtons .ai-box {
   rotate: 45deg;
   background-color: white;
   cursor: pointer;
   text-align:center;
 }
 
-.DiamondButtons button > * {
+.DiamondButtons button > *,
+.DiamondButtons .ai-box > * {
   rotate: -45deg;
+}
+
+.DiamondButtons .ai-box {
+  cursor: default;
+}
+
+.DiamondButtons .ai-box > h2 {
+  margin: 0;
+}
+
+.RefreshTheme,
+.ViewNumber {
+  position: relative;
+}
+
+.DiamondButtons.ai-mode {
+  --diamond-gap: 15px;
+  --diamond-size: 75px;
+  --ai-offset: calc((var(--diamond-size) + var(--diamond-gap)) / -1.414213562);
+}
+
+.DiamondButtons.ai-mode .AiClue {
+  position: absolute;
+  left: var(--ai-offset);
+  top: var(--ai-offset);
+  z-index: 1;
+}
+
+.DiamondButtons.ai-mode .AiGuess {
+  position: absolute;
+  right: var(--ai-offset);
+  top: var(--ai-offset);
+  z-index: 1;
 }
 
 @media (min-width: 720px) {
@@ -124,15 +159,26 @@ table.Board {
     margin-top: -76px;
   }
 
-  .DiamondButtons button {
+  .DiamondButtons.ai-mode {
+    --diamond-size: 150px;
+    --diamond-gap: 30px;
+  }
+
+  .DiamondButtons button,
+  .DiamondButtons .ai-box {
     width: 150px;
     height: 150px;
     padding: 20px;
     border: 4px black solid;
     border-radius: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .DiamondButtons button > * {
+  .DiamondButtons button > *,
+  .DiamondButtons .ai-box > * {
     font-size: 24px;
   }
 
@@ -203,15 +249,21 @@ table.Board {
     margin-top: -38px;
   }
 
-  .DiamondButtons button {
+  .DiamondButtons button,
+  .DiamondButtons .ai-box {
     width: 75px;
     height: 75px;
     padding: 10px;
     border: 2px black solid;
     border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .DiamondButtons button > * {
+  .DiamondButtons button > *,
+  .DiamondButtons .ai-box > * {
     font-size: 12px;
   }
 
@@ -282,15 +334,21 @@ table.Board {
     margin-top: -38px;
   }
 
-  .DiamondButtons button {
+  .DiamondButtons button,
+  .DiamondButtons .ai-box {
     width: 75px;
     height: 75px;
     padding: 10px;
     border: 2px black solid;
     border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .DiamondButtons button > * {
+  .DiamondButtons button > *,
+  .DiamondButtons .ai-box > * {
     font-size: 12px;
   }
 

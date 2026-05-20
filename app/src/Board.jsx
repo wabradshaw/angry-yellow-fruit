@@ -19,7 +19,7 @@ function Cell({value, callback}){
   );
 }
 
-function Board({scale, opinionsList, descriptionsList, themesList}) {
+function Board({scale, opinionsList, descriptionsList, themesList, aiMode = false}) {
   const initializeCardList = (initialList, count) => {
     const available = [...initialList];
     available.sort((a,b) => 0.5 - Math.random());
@@ -118,13 +118,27 @@ function Board({scale, opinionsList, descriptionsList, themesList}) {
           }
         </tbody>            
       </table>
-      <div className="DiamondButtons">
+      <div className={`DiamondButtons${aiMode ? ' ai-mode' : ''}`}>
         <div className="RefreshTheme">
+          {aiMode && (
+            <div className="AiClue">
+              <div className="ai-box">
+                <h2>AI Clue</h2>
+              </div>
+            </div>
+          )}
           <button onClick={() => refreshTheme()}>
             <h2>Change Theme</h2>
           </button>
         </div>
         <div className="ViewNumber">
+          {aiMode && (
+            <div className="AiGuess">
+              <div className="ai-box">
+                <h2>AI Guess</h2>
+              </div>
+            </div>
+          )}
           <button>
             <h2 className="unrevealed">View Number</h2>
             <div className="revealed">{currentNumber}</div>

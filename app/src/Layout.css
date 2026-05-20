@@ -65,39 +65,88 @@
 }
 
 .central-wrapper > .name {
-  padding-top: 20px;  
+  padding-top: 20px;
+}
+
+.name-large-wrapper,
+.name-small-wrapper {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.experimental-stamp {
+  position: absolute;
+  z-index: 1;
+  color: red;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-weight: 900;
+  -webkit-text-stroke: 0.08em black;
+  paint-order: stroke fill;
+  text-shadow:
+    -0.06em -0.06em 0 #000,
+     0.06em -0.06em 0 #000,
+    -0.06em  0.06em 0 #000,
+     0.06em  0.06em 0 #000;
+  transform: rotate(-30deg);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.name-small-wrapper {
+  width: 100%;
+}
+
+.name-small-wrapper .experimental-stamp {
+  top: 30px;
+  right: 8%;
+  font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.name-large-wrapper .experimental-stamp {
+  top: 28%;
+  right: 2%;
+  font-size: clamp(1.75rem, 4vw, 3rem);
 }
 
 .central-wrapper > .name .name-large {
   margin-top: -45px;
+  display: block;
+}
+
+.central-wrapper > .name .name-small {
+  display: block;
+  padding: 0px 20px 0px 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media ((min-width: 1080px) and (min-height: 800px)){
-  .central-wrapper > .name .name-small {
+  .central-wrapper > .name .name-small-wrapper {
     display: none;
   }
 }
 
 @media ((max-width: 1079px) or (max-height: 799px)) and (orientation: portrait) {
-  .central-wrapper > .name .name-large {
+  .central-wrapper > .name .name-large-wrapper {
     display: none;
-  }
-
-  .central-wrapper > .name .name-small {
-    padding: 0px 20px 0px 20px;
-    width: 100%;
-    box-sizing: border-box; 
   }
 }
 
 @media ((max-width: 1079px) or (max-height: 799px)) and (orientation: landscape){
-  .central-wrapper > .name .name-small {
+  .central-wrapper > .name .name-small-wrapper {
     display: none;
   }
-  
+
   .central-wrapper > .name .name-large {
     height: 100px;
     padding-left: 10px;
+  }
+
+  .name-large-wrapper .experimental-stamp {
+    top: 12px;
+    right: 0;
+    font-size: clamp(1.25rem, 3vw, 2rem);
   }
 }
 
