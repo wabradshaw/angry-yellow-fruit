@@ -20,13 +20,18 @@ function guessToCellNumber(guessText) {
   return (row * 3) + col + 1;
 }
 
-function formatGuessMessage(guessText) {
+function formatGuessMessage(guessText, descriptions, opinions) {
   if (guessText.trim().toLowerCase() === 'false') {
     return "That doesn't fit the theme.";
   }
   const cellNumber = guessToCellNumber(guessText);
   if (cellNumber) {
-    return `I guess ${cellNumber}.`;
+    const w1Map = { A: 0, B: 1, C: 2 };
+    const w2Map = { D: 0, E: 1, F: 2 };
+    const guess = guessText.trim().toUpperCase();
+    const description = descriptions[w1Map[guess[0]]];
+    const opinion = opinions[w2Map[guess[1]]];
+    return `I guess ${cellNumber}. ${description} and ${opinion}.`;
   }
   return `I guess ${guessText.trim().toUpperCase()}.`;
 }
@@ -182,7 +187,11 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
 
     try {
       const { guess } = await requestGuess(getScenario(), clueText);
-      const message = formatGuessMessage(guess);
+      const message = formatGuessMessage(
+        guess,
+        descriptions.selected,
+        opinions.selected,
+      );
       setCachedAiGuess({ clue: clueText, boardKey: getBoardKey(), message });
       setAiGuessMessage(message);
     } catch (err) {
