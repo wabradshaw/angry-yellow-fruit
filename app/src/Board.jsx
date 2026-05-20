@@ -146,6 +146,9 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   };
 
   const handleCellClick = (value) => {
+    if (aiMode && showAiGuessPanel) {
+      closeAiGuessPanel();
+    }
     if (aiMode && showAiCluePanel && cachedAiClue && !aiClueLoading) {
       if (!aiClueRevealed) {
         const clickedNumber = value + 1;
