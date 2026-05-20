@@ -98,15 +98,17 @@
 }
 
 .name-small-wrapper .experimental-stamp {
-  top: 30px;
-  right: 8%;
+  top: 50%;
+  left: 50%;
   font-size: clamp(2rem, 6vw, 4rem);
+  transform: translate(-50%, -50%) rotate(-15deg);
 }
 
 .name-large-wrapper .experimental-stamp {
-  top: 28%;
-  right: 2%;
+  top: 50%;
+  left: 50%;
   font-size: clamp(1.75rem, 4vw, 3rem);
+  transform: translate(-50%, -50%) rotate(-15deg);
 }
 
 .central-wrapper > .name .name-large {
@@ -124,6 +126,10 @@
 @media ((min-width: 1080px) and (min-height: 800px)){
   .central-wrapper > .name .name-small-wrapper {
     display: none;
+  }
+
+  .name-large-wrapper .experimental-stamp {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
   }
 }
 
@@ -144,8 +150,6 @@
   }
 
   .name-large-wrapper .experimental-stamp {
-    top: 12px;
-    right: 0;
     font-size: clamp(1.25rem, 3vw, 2rem);
   }
 }
