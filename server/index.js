@@ -3,6 +3,11 @@ import cors from "cors";
 import express from "express";
 import { clue, guess } from "./ai.js";
 import { sendRouteError } from "./apiErrors.js";
+import {
+  isValidClue,
+  isValidScenario,
+  isValidTarget,
+} from "./validateInput.js";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -10,42 +15,13 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-function isWordSet(obj, keys) {
-  return obj && typeof obj === "object" && keys.every((key) => typeof obj[key] === "string" && obj[key].length > 0);
-}
-
-function validateScenario(body) {
-  if (!body || typeof body.Theme !== "string" || !body.Theme.trim()) {
-    return "Theme is required";
-  }
-  if (!isWordSet(body.W1, ["A", "B", "C"])) {
-    return "W1 must include non-empty A, B, and C strings";
-  }
-  if (!isWordSet(body.W2, ["D", "E", "F"])) {
-    return "W2 must include non-empty D, E, and F strings";
-  }
-  return null;
-}
-
-function validateTarget(target) {
-  if (typeof target !== "string" || !/^[ABC][DEF]$/i.test(target.trim())) {
-    return "Target must be two letters identifying W1 and W2 (e.g. AE)";
-  }
-  return null;
-}
-
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
 app.post("/api/clue", async (req, res) => {
-  const error = validateScenario(req.body);
-  if (error) {
-    return res.status(400).json({ error });
-  }
-  const targetError = validateTarget(req.body.Target);
-  if (targetError) {
-    return res.status(400).json({ error: targetError });
+  if (!isValidScenario(req.body) || !isValidTarget(req.body.Target)) {
+    return res.sendStatus(400);
   }
 
   try {
@@ -60,15 +36,8 @@ app.post("/api/clue", async (req, res) => {
 });
 
 app.post("/api/guess", async (req, res) => {
-  const error = validateScenario(req.body);
-  if (error) {
-    return res.status(400).json({ error });
-  }
-  if (typeof req.body.Clue !== "string" || !req.body.Clue.trim()) {
-    return res.status(400).json({ error: "Clue is required" });
-  }
-  if (req.body.Clue.length > 40) {
-    return res.status(400).json({ error: "Clue must be at most 40 characters" });
+  if (!isValidScenario(req.body) || !isValidClue(req.body.Clue)) {
+    return res.sendStatus(400);
   }
 
   try {
