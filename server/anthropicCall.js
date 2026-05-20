@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { InsufficientTokensError, isInsufficientTokensError } from "./errors.js";
 
 const client = new Anthropic();
-export const MODEL = "claude-haiku-4-5";
+export const MODEL = "claude-sonnet-4-6";
 export const MAX_RETRIES = 1;
 
 export async function createMessage(params) {
