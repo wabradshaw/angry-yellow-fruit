@@ -45,6 +45,8 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   
   const [currentNumber, setCurrentNumber] = useState(randomNumber());
   const [showAiCluePanel, setShowAiCluePanel] = useState(false);
+  const [showAiGuessPanel, setShowAiGuessPanel] = useState(false);
+  const [userClue, setUserClue] = useState('');
 
   const getRefreshedSpecificValue = (id, cardList) => {
     const { discard, available, selected } = cardList;
@@ -90,6 +92,13 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     setCurrentNumber(randomNumber());
   }
 
+  const handleGuessSubmit = (e) => {
+    e.preventDefault();
+    if (!userClue.trim()) {
+      return;
+    }
+  }
+
   return (
     <>
       <table className="Board">
@@ -123,7 +132,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
         <div className="RefreshTheme">
           {aiMode && (
             <div className="AiClue">
-              <button type="button" className="ai-box" onClick={() => setShowAiCluePanel(true)}>
+              <button type="button" onClick={() => setShowAiCluePanel(true)}>
                 <h2>AI Clue</h2>
               </button>
             </div>
@@ -135,9 +144,9 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
         <div className="ViewNumber">
           {aiMode && (
             <div className="AiGuess">
-              <div className="ai-box">
+              <button type="button" onClick={() => setShowAiGuessPanel(true)}>
                 <h2>AI Guess</h2>
-              </div>
+              </button>
             </div>
           )}
           <button>
@@ -159,6 +168,48 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
             className="ai-clue-panel-close"
             aria-label="Close"
             onClick={() => setShowAiCluePanel(false)}
+          >
+            ×
+          </button>
+        </div>
+      )}
+      {aiMode && showAiGuessPanel && (
+        <div className="ai-guess-panel">
+          <form className="ai-guess-panel-content" onSubmit={handleGuessSubmit}>
+            <label className="ai-guess-panel-text" htmlFor="ai-guess-clue">
+              What&apos;s your clue?
+            </label>
+            <div className="ai-guess-panel-entry">
+              <input
+                id="ai-guess-clue"
+                className="ai-guess-panel-input"
+                type="text"
+                maxLength={40}
+                value={userClue}
+                onChange={(e) => setUserClue(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="ai-guess-panel-submit"
+                disabled={!userClue.trim()}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+          <img
+            className="ai-guess-panel-stan"
+            src="/angry-yellow-fruit/Stan.svg"
+            alt="Stan"
+          />
+          <button
+            type="button"
+            className="ai-guess-panel-close"
+            aria-label="Close"
+            onClick={() => {
+              setShowAiGuessPanel(false);
+              setUserClue('');
+            }}
           >
             ×
           </button>
