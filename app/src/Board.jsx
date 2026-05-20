@@ -81,6 +81,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   const [aiClueLoading, setAiClueLoading] = useState(false);
   const [aiGuessMessage, setAiGuessMessage] = useState('');
   const [aiGuessLoading, setAiGuessLoading] = useState(false);
+  const [cachedAiClue, setCachedAiClue] = useState(null);
 
   const getScenario = () => buildScenario(
     themes.selected[0],
@@ -113,7 +114,12 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     }
   }
 
+  const clearCachedAiClue = () => {
+    setCachedAiClue(null);
+  };
+
   const refreshValue = (value) => {
+    clearCachedAiClue();
     refreshOpinions(Math.trunc(value / scale)); 
     refreshDescriptions(value % scale);
     setCurrentNumber(randomNumber()); 
@@ -128,9 +134,29 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   }
 
   const refreshTheme = () => {
+    closeAiPanels();
+    clearCachedAiClue();
     setThemes(getRefreshedSpecificValue(0, themes)); 
     setCurrentNumber(randomNumber());
   }
+
+  const closeAiCluePanel = () => {
+    setShowAiCluePanel(false);
+    setAiClueText('Let me think...');
+    setAiClueLoading(false);
+  };
+
+  const closeAiGuessPanel = () => {
+    setShowAiGuessPanel(false);
+    setUserClue('');
+    setAiGuessMessage('');
+    setAiGuessLoading(false);
+  };
+
+  const closeAiPanels = () => {
+    closeAiCluePanel();
+    closeAiGuessPanel();
+  };
 
   const handleGuessSubmit = async (e) => {
     e.preventDefault();
@@ -153,12 +179,21 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   }
 
   const openAiCluePanel = async () => {
+    closeAiGuessPanel();
     setShowAiCluePanel(true);
+
+    if (cachedAiClue) {
+      setAiClueText(cachedAiClue);
+      setAiClueLoading(false);
+      return;
+    }
+
     setAiClueText('Let me think...');
     setAiClueLoading(true);
 
     try {
       const result = await requestClue(getScenario(), cellNumberToTarget(currentNumber));
+      setCachedAiClue(result.Clue);
       setAiClueText(result.Clue);
     } catch {
       setAiClueText('Sorry, something went wrong.');
@@ -168,14 +203,8 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   };
 
   const openAiGuessPanel = () => {
+    closeAiCluePanel();
     setShowAiGuessPanel(true);
-    setUserClue('');
-    setAiGuessMessage('');
-    setAiGuessLoading(false);
-  };
-
-  const closeAiGuessPanel = () => {
-    setShowAiGuessPanel(false);
     setUserClue('');
     setAiGuessMessage('');
     setAiGuessLoading(false);
@@ -219,7 +248,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
               </button>
             </div>
           )}
-          <button onClick={() => refreshTheme()}>
+          <button onClick={refreshTheme}>
             <h2>Change Theme</h2>
           </button>
         </div>
@@ -249,7 +278,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
             type="button"
             className="ai-clue-panel-close"
             aria-label="Close"
-            onClick={() => setShowAiCluePanel(false)}
+            onClick={closeAiCluePanel}
             disabled={aiClueLoading}
           >
             ×
