@@ -1,5 +1,35 @@
 import './Board.css';
 import { useState } from 'react';
+import { buildScenario, cellNumberToTarget, requestClue, requestGuess } from './aiApi';
+
+function guessToCellNumber(guessText) {
+  const w1Map = { A: 0, B: 1, C: 2 };
+  const w2Map = { D: 0, E: 1, F: 2 };
+  const guess = guessText.trim().toUpperCase();
+  if (guess === 'FALSE') {
+    return null;
+  }
+  if (guess.length !== 2) {
+    return null;
+  }
+  const col = w1Map[guess[0]];
+  const row = w2Map[guess[1]];
+  if (col === undefined || row === undefined) {
+    return null;
+  }
+  return (row * 3) + col + 1;
+}
+
+function formatGuessMessage(guessText) {
+  if (guessText.trim().toLowerCase() === 'false') {
+    return "That doesn't fit the theme.";
+  }
+  const cellNumber = guessToCellNumber(guessText);
+  if (cellNumber) {
+    return `I guess ${cellNumber}.`;
+  }
+  return `I guess ${guessText.trim().toUpperCase()}.`;
+}
 
 function BoardHeader({word, direction, callback}) {  
   if (direction === 'left'){
@@ -47,6 +77,16 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   const [showAiCluePanel, setShowAiCluePanel] = useState(false);
   const [showAiGuessPanel, setShowAiGuessPanel] = useState(false);
   const [userClue, setUserClue] = useState('');
+  const [aiClueText, setAiClueText] = useState('Let me think...');
+  const [aiClueLoading, setAiClueLoading] = useState(false);
+  const [aiGuessMessage, setAiGuessMessage] = useState('');
+  const [aiGuessLoading, setAiGuessLoading] = useState(false);
+
+  const getScenario = () => buildScenario(
+    themes.selected[0],
+    descriptions.selected,
+    opinions.selected,
+  );
 
   const getRefreshedSpecificValue = (id, cardList) => {
     const { discard, available, selected } = cardList;
@@ -92,12 +132,54 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     setCurrentNumber(randomNumber());
   }
 
-  const handleGuessSubmit = (e) => {
+  const handleGuessSubmit = async (e) => {
     e.preventDefault();
-    if (!userClue.trim()) {
+    const clueText = userClue.trim();
+    if (!clueText || aiGuessLoading) {
       return;
     }
+
+    setAiGuessLoading(true);
+    setAiGuessMessage('Let me think...');
+
+    try {
+      const { guess } = await requestGuess(getScenario(), clueText);
+      setAiGuessMessage(formatGuessMessage(guess));
+    } catch {
+      setAiGuessMessage('Sorry, something went wrong.');
+    } finally {
+      setAiGuessLoading(false);
+    }
   }
+
+  const openAiCluePanel = async () => {
+    setShowAiCluePanel(true);
+    setAiClueText('Let me think...');
+    setAiClueLoading(true);
+
+    try {
+      const result = await requestClue(getScenario(), cellNumberToTarget(currentNumber));
+      setAiClueText(result.Clue);
+    } catch {
+      setAiClueText('Sorry, something went wrong.');
+    } finally {
+      setAiClueLoading(false);
+    }
+  };
+
+  const openAiGuessPanel = () => {
+    setShowAiGuessPanel(true);
+    setUserClue('');
+    setAiGuessMessage('');
+    setAiGuessLoading(false);
+  };
+
+  const closeAiGuessPanel = () => {
+    setShowAiGuessPanel(false);
+    setUserClue('');
+    setAiGuessMessage('');
+    setAiGuessLoading(false);
+  };
 
   return (
     <>
@@ -132,7 +214,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
         <div className="RefreshTheme">
           {aiMode && (
             <div className="AiClue">
-              <button type="button" onClick={() => setShowAiCluePanel(true)}>
+              <button type="button" onClick={openAiCluePanel}>
                 <h2>AI Clue</h2>
               </button>
             </div>
@@ -144,7 +226,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
         <div className="ViewNumber">
           {aiMode && (
             <div className="AiGuess">
-              <button type="button" onClick={() => setShowAiGuessPanel(true)}>
+              <button type="button" onClick={openAiGuessPanel}>
                 <h2>AI Guess</h2>
               </button>
             </div>
@@ -162,12 +244,13 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
             src="/angry-yellow-fruit/Stan.svg"
             alt="Stan"
           />
-          <p className="ai-clue-panel-text">Let me think...</p>
+          <p className="ai-clue-panel-text">{aiClueText}</p>
           <button
             type="button"
             className="ai-clue-panel-close"
             aria-label="Close"
             onClick={() => setShowAiCluePanel(false)}
+            disabled={aiClueLoading}
           >
             ×
           </button>
@@ -191,11 +274,14 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
               <button
                 type="submit"
                 className="ai-guess-panel-submit"
-                disabled={!userClue.trim()}
+                disabled={!userClue.trim() || aiGuessLoading}
               >
                 Submit
               </button>
             </div>
+            {aiGuessMessage && (
+              <p className="ai-guess-panel-result">{aiGuessMessage}</p>
+            )}
           </form>
           <img
             className="ai-guess-panel-stan"
@@ -206,10 +292,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
             type="button"
             className="ai-guess-panel-close"
             aria-label="Close"
-            onClick={() => {
-              setShowAiGuessPanel(false);
-              setUserClue('');
-            }}
+            onClick={closeAiGuessPanel}
           >
             ×
           </button>
