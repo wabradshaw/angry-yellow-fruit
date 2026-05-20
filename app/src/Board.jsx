@@ -98,6 +98,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   const [cachedAiClue, setCachedAiClue] = useState(null);
   const [cachedAiGuess, setCachedAiGuess] = useState(null);
   const [aiClueRevealed, setAiClueRevealed] = useState(false);
+  const [aiClueCellFeedback, setAiClueCellFeedback] = useState(null);
 
   const getScenario = () => buildScenario(
     themes.selected[0],
@@ -139,10 +140,27 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
 
   const refreshValue = (value) => {
     clearAiCaches();
-    refreshOpinions(Math.trunc(value / scale)); 
+    refreshOpinions(Math.trunc(value / scale));
     refreshDescriptions(value % scale);
-    setCurrentNumber(randomNumber()); 
-  }
+    setCurrentNumber(randomNumber());
+  };
+
+  const handleCellClick = (value) => {
+    if (aiMode && showAiCluePanel && cachedAiClue && !aiClueLoading) {
+      if (!aiClueRevealed) {
+        const clickedNumber = value + 1;
+        setAiClueCellFeedback(
+          clickedNumber === cachedAiClue.cellNumber ? 'Correct!' : 'Not quite.',
+        );
+        setAiClueRevealed(true);
+        return;
+      }
+      refreshValue(value);
+      closeAiCluePanel();
+      return;
+    }
+    refreshValue(value);
+  };
 
   const refreshOpinions = (value) => {
     setOpinions(getRefreshedSpecificValue(value, opinions));  
@@ -164,6 +182,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     setAiClueText('Let me think...');
     setAiClueLoading(false);
     setAiClueRevealed(false);
+    setAiClueCellFeedback(null);
   };
 
   const closeAiGuessPanel = () => {
@@ -222,6 +241,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
       return;
     }
     setAiClueRevealed(true);
+    setAiClueCellFeedback(null);
   };
 
   const openAiCluePanel = async () => {
@@ -229,6 +249,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     setShowAiCluePanel(true);
 
     setAiClueRevealed(false);
+    setAiClueCellFeedback(null);
 
     if (cachedAiClue) {
       setAiClueText(cachedAiClue.clue);
@@ -278,7 +299,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
                   {
                     descriptions.selected.map((col, colIndex) => {
                       const key = (scale * rowIndex) + colIndex;
-                      return (<Cell value={key} callback={refreshValue} key={key}/>)
+                      return (<Cell value={key} callback={handleCellClick} key={key}/>)
                     })
                   }
                 </tr>
@@ -325,6 +346,9 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
             <div className="ai-clue-panel-main">
               <div className="ai-clue-panel-copy">
                 <p className="ai-clue-panel-text">{aiClueText}</p>
+                {aiClueCellFeedback && (
+                  <p className="ai-clue-panel-feedback">{aiClueCellFeedback}</p>
+                )}
                 {aiClueRevealed && cachedAiClue && (
                   <p className="ai-clue-panel-reveal">
                     {formatClueTarget(

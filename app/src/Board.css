@@ -440,7 +440,8 @@ table.Board {
   font-size: 36px;
 }
 
-.ai-clue-panel-reveal {
+.ai-clue-panel-reveal,
+.ai-clue-panel-feedback {
   margin: 0;
   color: black;
   font-family: "Comic Sans MS", "Comic Sans", cursive;
