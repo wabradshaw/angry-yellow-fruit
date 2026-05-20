@@ -44,6 +44,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   const [descriptions, setDescriptions] = useState(initializeCardList(descriptionsList, scale));
   
   const [currentNumber, setCurrentNumber] = useState(randomNumber());
+  const [showAiCluePanel, setShowAiCluePanel] = useState(false);
 
   const getRefreshedSpecificValue = (id, cardList) => {
     const { discard, available, selected } = cardList;
@@ -122,9 +123,9 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
         <div className="RefreshTheme">
           {aiMode && (
             <div className="AiClue">
-              <div className="ai-box">
+              <button type="button" className="ai-box" onClick={() => setShowAiCluePanel(true)}>
                 <h2>AI Clue</h2>
-              </div>
+              </button>
             </div>
           )}
           <button onClick={() => refreshTheme()}>
@@ -145,6 +146,24 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
           </button>
         </div>
       </div>
+      {aiMode && showAiCluePanel && (
+        <div className="ai-clue-panel">
+          <img
+            className="ai-clue-panel-stan"
+            src="/angry-yellow-fruit/Stan.svg"
+            alt="Stan"
+          />
+          <p className="ai-clue-panel-text">Let me think...</p>
+          <button
+            type="button"
+            className="ai-clue-panel-close"
+            aria-label="Close"
+            onClick={() => setShowAiCluePanel(false)}
+          >
+            ×
+          </button>
+        </div>
+      )}
     </>
   );
 }
