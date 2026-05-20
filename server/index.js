@@ -8,10 +8,12 @@ import {
   isValidScenario,
   isValidTarget,
 } from "./validateInput.js";
+import { clueRateLimit, guessRateLimit } from "./rateLimit.js";
 
 const app = express();
 const port = process.env.PORT || 3001;
 
+app.set("trust proxy", 1);
 app.use(cors());
 app.use(express.json());
 
@@ -19,7 +21,7 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-app.post("/api/clue", async (req, res) => {
+app.post("/api/clue", clueRateLimit, async (req, res) => {
   if (!isValidScenario(req.body) || !isValidTarget(req.body.Target)) {
     return res.sendStatus(400);
   }
@@ -35,7 +37,7 @@ app.post("/api/clue", async (req, res) => {
   }
 });
 
-app.post("/api/guess", async (req, res) => {
+app.post("/api/guess", guessRateLimit, async (req, res) => {
   if (!isValidScenario(req.body) || !isValidClue(req.body.Clue)) {
     return res.sendStatus(400);
   }

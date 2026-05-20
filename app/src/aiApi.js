@@ -1,11 +1,19 @@
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
 export const TOKEN_HUNGER_MESSAGE = "I hunger for tokens! Ask William to add more.";
+export const RATE_LIMIT_MESSAGE = "I'm tired, wait a minute.";
 
 export class InsufficientTokensError extends Error {
   constructor() {
     super(TOKEN_HUNGER_MESSAGE);
     this.name = "InsufficientTokensError";
+  }
+}
+
+export class RateLimitError extends Error {
+  constructor() {
+    super(RATE_LIMIT_MESSAGE);
+    this.name = "RateLimitError";
   }
 }
 
@@ -18,6 +26,9 @@ async function postJson(path, body) {
 
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
+    if (response.status === 429) {
+      throw new RateLimitError();
+    }
     if (data.code === "insufficient_tokens") {
       throw new InsufficientTokensError();
     }
@@ -27,7 +38,7 @@ async function postJson(path, body) {
 }
 
 export function getAiErrorMessage(err) {
-  if (err instanceof InsufficientTokensError) {
+  if (err instanceof InsufficientTokensError || err instanceof RateLimitError) {
     return err.message;
   }
   return "Sorry, something went wrong.";
