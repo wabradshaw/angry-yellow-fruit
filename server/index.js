@@ -2,6 +2,7 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import { clue, guess } from "./ai.js";
+import { sendRouteError } from "./apiErrors.js";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -54,8 +55,7 @@ app.post("/api/clue", async (req, res) => {
     });
     res.json(result);
   } catch (err) {
-    console.error("POST /api/clue failed:", err);
-    res.status(500).json({ error: "Failed to generate clue" });
+    sendRouteError(res, err, "POST /api/clue");
   }
 });
 
@@ -80,8 +80,7 @@ app.post("/api/guess", async (req, res) => {
     });
     res.json({ guess: result });
   } catch (err) {
-    console.error("POST /api/guess failed:", err);
-    res.status(500).json({ error: "Failed to generate guess" });
+    sendRouteError(res, err, "POST /api/guess");
   }
 });
 

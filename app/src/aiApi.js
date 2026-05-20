@@ -1,5 +1,14 @@
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
+export const TOKEN_HUNGER_MESSAGE = "I hunger for tokens! Ask William to add more.";
+
+export class InsufficientTokensError extends Error {
+  constructor() {
+    super(TOKEN_HUNGER_MESSAGE);
+    this.name = "InsufficientTokensError";
+  }
+}
+
 async function postJson(path, body) {
   const response = await fetch(`${API_BASE}${path}`, {
     method: "POST",
@@ -9,9 +18,19 @@ async function postJson(path, body) {
 
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
+    if (data.code === "insufficient_tokens") {
+      throw new InsufficientTokensError();
+    }
     throw new Error(data.error || `Request failed (${response.status})`);
   }
   return data;
+}
+
+export function getAiErrorMessage(err) {
+  if (err instanceof InsufficientTokensError) {
+    return err.message;
+  }
+  return "Sorry, something went wrong.";
 }
 
 export function cellNumberToTarget(cellNumber) {

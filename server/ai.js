@@ -1,7 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
-
-const client = new Anthropic();
-const MODEL = "claude-haiku-4-5";
+import { createMessage, getMessageText, MODEL } from "./anthropicCall.js";
 
 export async function clue(scenario) {
   const { Theme, W1, W2, Target } = scenario;
@@ -21,13 +18,13 @@ Give a single clue word or short phrase that fits the theme and connects both ad
 Reply with JSON only, no explanation:
 {"Clue": "<your clue>", "Target": "${Target}"}`;
 
-  const response = await client.messages.create({
+  const response = await createMessage({
     model: MODEL,
     max_tokens: 256,
     messages: [{ role: "user", content: prompt }],
   });
 
-  const text = response.content[0].text.trim();
+  const text = getMessageText(response);
   const match = text.match(/\{[\s\S]*\}/);
   if (!match) {
     throw new Error(`Clue: unexpected response: ${text}`);
@@ -39,12 +36,12 @@ Reply with JSON only, no explanation:
 export async function guess(clueInput) {
   const systemPrompt = `You are playing a guessing role in a board game. The user will give you a clue, a theme, and two word sets (W1 and W2), each containing three adjectives (A/B/C and D/E/F). Your job is to decide which adjective from W1 and which from W2 the clue most strongly fits. Rules: If the clue does not fit the theme, reply with: false. Otherwise, reply with two letters only (e.g. AE or CF). No explanation.`;
 
-  const response = await client.messages.create({
+  const response = await createMessage({
     model: MODEL,
     max_tokens: 16,
     system: systemPrompt,
     messages: [{ role: "user", content: JSON.stringify(clueInput) }],
   });
 
-  return response.content[0].text.trim();
+  return getMessageText(response);
 }

@@ -1,6 +1,6 @@
 import './Board.css';
 import { useState } from 'react';
-import { buildScenario, cellNumberToTarget, requestClue, requestGuess } from './aiApi';
+import { buildScenario, cellNumberToTarget, getAiErrorMessage, requestClue, requestGuess } from './aiApi';
 
 function guessToCellNumber(guessText) {
   const w1Map = { A: 0, B: 1, C: 2 };
@@ -171,8 +171,8 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     try {
       const { guess } = await requestGuess(getScenario(), clueText);
       setAiGuessMessage(formatGuessMessage(guess));
-    } catch {
-      setAiGuessMessage('Sorry, something went wrong.');
+    } catch (err) {
+      setAiGuessMessage(getAiErrorMessage(err));
     } finally {
       setAiGuessLoading(false);
     }
@@ -195,8 +195,8 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
       const result = await requestClue(getScenario(), cellNumberToTarget(currentNumber));
       setCachedAiClue(result.Clue);
       setAiClueText(result.Clue);
-    } catch {
-      setAiClueText('Sorry, something went wrong.');
+    } catch (err) {
+      setAiClueText(getAiErrorMessage(err));
     } finally {
       setAiClueLoading(false);
     }
