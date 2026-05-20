@@ -82,6 +82,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   const [aiGuessMessage, setAiGuessMessage] = useState('');
   const [aiGuessLoading, setAiGuessLoading] = useState(false);
   const [cachedAiClue, setCachedAiClue] = useState(null);
+  const [cachedAiGuess, setCachedAiGuess] = useState(null);
 
   const getScenario = () => buildScenario(
     themes.selected[0],
@@ -114,12 +115,15 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     }
   }
 
-  const clearCachedAiClue = () => {
+  const getBoardKey = () => JSON.stringify(getScenario());
+
+  const clearAiCaches = () => {
     setCachedAiClue(null);
+    setCachedAiGuess(null);
   };
 
   const refreshValue = (value) => {
-    clearCachedAiClue();
+    clearAiCaches();
     refreshOpinions(Math.trunc(value / scale)); 
     refreshDescriptions(value % scale);
     setCurrentNumber(randomNumber()); 
@@ -135,7 +139,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
 
   const refreshTheme = () => {
     closeAiPanels();
-    clearCachedAiClue();
+    clearAiCaches();
     setThemes(getRefreshedSpecificValue(0, themes)); 
     setCurrentNumber(randomNumber());
   }
@@ -165,12 +169,22 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
       return;
     }
 
+    if (
+      cachedAiGuess?.clue === clueText
+      && cachedAiGuess.boardKey === getBoardKey()
+    ) {
+      setAiGuessMessage(cachedAiGuess.message);
+      return;
+    }
+
     setAiGuessLoading(true);
     setAiGuessMessage('Let me think...');
 
     try {
       const { guess } = await requestGuess(getScenario(), clueText);
-      setAiGuessMessage(formatGuessMessage(guess));
+      const message = formatGuessMessage(guess);
+      setCachedAiGuess({ clue: clueText, boardKey: getBoardKey(), message });
+      setAiGuessMessage(message);
     } catch (err) {
       setAiGuessMessage(getAiErrorMessage(err));
     } finally {
