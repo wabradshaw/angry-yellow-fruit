@@ -20,6 +20,15 @@ function guessToCellNumber(guessText) {
   return (row * 3) + col + 1;
 }
 
+function formatClueTarget(cellNumber, descriptions, opinions) {
+  const target = cellNumberToTarget(cellNumber);
+  const w1Map = { A: 0, B: 1, C: 2 };
+  const w2Map = { D: 0, E: 1, F: 2 };
+  const description = descriptions[w1Map[target[0]]];
+  const opinion = opinions[w2Map[target[1]]];
+  return `That was a clue for ${cellNumber}. ${description} and ${opinion}.`;
+}
+
 function formatGuessMessage(guessText, descriptions, opinions) {
   if (guessText.trim().toLowerCase() === 'false') {
     return "That doesn't fit the theme.";
@@ -88,6 +97,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
   const [aiGuessLoading, setAiGuessLoading] = useState(false);
   const [cachedAiClue, setCachedAiClue] = useState(null);
   const [cachedAiGuess, setCachedAiGuess] = useState(null);
+  const [aiClueRevealed, setAiClueRevealed] = useState(false);
 
   const getScenario = () => buildScenario(
     themes.selected[0],
@@ -153,6 +163,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     setShowAiCluePanel(false);
     setAiClueText('Let me think...');
     setAiClueLoading(false);
+    setAiClueRevealed(false);
   };
 
   const closeAiGuessPanel = () => {
@@ -201,12 +212,26 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
     }
   }
 
+  const handleAiClueRevealButton = () => {
+    if (!cachedAiClue) {
+      return;
+    }
+    if (aiClueRevealed) {
+      refreshValue(cachedAiClue.cellNumber - 1);
+      closeAiCluePanel();
+      return;
+    }
+    setAiClueRevealed(true);
+  };
+
   const openAiCluePanel = async () => {
     closeAiGuessPanel();
     setShowAiCluePanel(true);
 
+    setAiClueRevealed(false);
+
     if (cachedAiClue) {
-      setAiClueText(cachedAiClue);
+      setAiClueText(cachedAiClue.clue);
       setAiClueLoading(false);
       return;
     }
@@ -216,7 +241,7 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
 
     try {
       const result = await requestClue(getScenario(), cellNumberToTarget(currentNumber));
-      setCachedAiClue(result.Clue);
+      setCachedAiClue({ clue: result.Clue, cellNumber: currentNumber });
       setAiClueText(result.Clue);
     } catch (err) {
       setAiClueText(getAiErrorMessage(err));
@@ -296,7 +321,31 @@ function Board({scale, opinionsList, descriptionsList, themesList, aiMode = fals
             src="/angry-yellow-fruit/Stan.svg"
             alt="Stan"
           />
-          <p className="ai-clue-panel-text">{aiClueText}</p>
+          <div className="ai-clue-panel-content">
+            <div className="ai-clue-panel-main">
+              <div className="ai-clue-panel-copy">
+                <p className="ai-clue-panel-text">{aiClueText}</p>
+                {aiClueRevealed && cachedAiClue && (
+                  <p className="ai-clue-panel-reveal">
+                    {formatClueTarget(
+                      cachedAiClue.cellNumber,
+                      descriptions.selected,
+                      opinions.selected,
+                    )}
+                  </p>
+                )}
+              </div>
+              {cachedAiClue && !aiClueLoading && (
+                <button
+                  type="button"
+                  className="ai-clue-panel-reveal-btn"
+                  onClick={handleAiClueRevealButton}
+                >
+                  {aiClueRevealed ? 'Next Turn' : 'Reveal'}
+                </button>
+              )}
+            </div>
+          </div>
           <button
             type="button"
             className="ai-clue-panel-close"

@@ -401,6 +401,35 @@ table.Board {
   object-fit: contain;
 }
 
+.ai-clue-panel-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 48px 0 16px;
+  min-width: 0;
+}
+
+.ai-clue-panel-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ai-clue-panel-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ai-clue-panel-content .ai-clue-panel-text {
+  padding: 0;
+}
+
 .ai-clue-panel-text,
 .ai-guess-panel-text {
   margin: 0;
@@ -409,6 +438,30 @@ table.Board {
   color: black;
   font-family: "Comic Sans MS", "Comic Sans", cursive;
   font-size: 36px;
+}
+
+.ai-clue-panel-reveal {
+  margin: 0;
+  color: black;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 28px;
+}
+
+.ai-clue-panel-reveal-btn {
+  flex-shrink: 0;
+  border: 4px solid black;
+  border-radius: 12px;
+  padding: 10px 20px;
+  background-color: #55d400ff;
+  color: black;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ai-clue-panel-reveal-btn:hover {
+  background-color: white;
 }
 
 .ai-guess-panel-text {
@@ -500,6 +553,15 @@ table.Board {
   .ai-clue-panel,
   .ai-guess-panel {
     height: 300px;
+  }
+
+  .ai-clue-panel-main {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ai-clue-panel-reveal-btn {
+    align-self: flex-start;
   }
 }
 
