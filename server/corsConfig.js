@@ -1,5 +1,6 @@
 const DEFAULT_ORIGINS = [
   "https://wabradshaw.com",
+  "https://www.wabradshaw.com",
   "http://localhost:3000",
 ];
 
