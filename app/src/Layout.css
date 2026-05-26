@@ -79,7 +79,7 @@
   position: absolute;
   z-index: 1;
   color: red;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: var(--ayf-comic-font);
   font-weight: 900;
   -webkit-text-stroke: 0.08em black;
   paint-order: stroke fill;

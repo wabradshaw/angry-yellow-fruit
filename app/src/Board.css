@@ -436,7 +436,7 @@ table.Board {
   flex: 1;
   padding: 0 48px 0 16px;
   color: black;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: var(--ayf-comic-font);
   font-size: 36px;
 }
 
@@ -444,7 +444,7 @@ table.Board {
 .ai-clue-panel-feedback {
   margin: 0;
   color: black;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: var(--ayf-comic-font);
   font-size: 28px;
 }
 
@@ -455,7 +455,7 @@ table.Board {
   padding: 10px 20px;
   background-color: #55d400ff;
   color: black;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: var(--ayf-comic-font);
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
@@ -497,7 +497,7 @@ table.Board {
   border-radius: 12px;
   padding: 10px 14px;
   color: black;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: var(--ayf-comic-font);
   font-size: 24px;
   background-color: white;
 }
@@ -513,6 +513,7 @@ table.Board {
   padding: 10px 20px;
   background-color: #55d400ff;
   color: black;
+  font-family: var(--ayf-comic-font);
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
@@ -531,7 +532,7 @@ table.Board {
 .ai-guess-panel-result {
   margin: 0;
   color: black;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: var(--ayf-comic-font);
   font-size: 28px;
 }
 
@@ -551,9 +552,84 @@ table.Board {
 }
 
 @media (max-width: 719px) {
+  .DiamondButtons.ai-mode {
+    --ai-mobile-row-gap: 12px;
+    --ai-mobile-bottom-gap: 48px;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ai-mobile-row-gap);
+    margin-top: 0;
+    max-width: 327px;
+    width: 100%;
+    padding: 0 16px 12px;
+    box-sizing: border-box;
+  }
+
+  .DiamondButtons.ai-mode .RefreshTheme {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .DiamondButtons.ai-mode .ViewNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--ai-mobile-bottom-gap);
+    width: 100%;
+    margin-top: -12px;
+  }
+
+  .DiamondButtons.ai-mode .AiClue,
+  .DiamondButtons.ai-mode .AiGuess {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
+  }
+
   .ai-clue-panel,
   .ai-guess-panel {
-    height: 300px;
+    height: auto;
+    min-height: 200px;
+    max-height: min(300px, 45vh);
+    width: calc(100vw - 24px);
+    bottom: 12px;
+    padding: 10px 12px;
+  }
+
+  .ai-clue-panel-stan,
+  .ai-guess-panel-stan {
+    max-width: 28%;
+  }
+
+  .ai-clue-panel-text {
+    font-size: 18px;
+  }
+
+  .ai-clue-panel-reveal,
+  .ai-clue-panel-feedback,
+  .ai-guess-panel-result {
+    font-size: 15px;
+  }
+
+  .ai-guess-panel-text {
+    font-size: 16px;
+  }
+
+  .ai-guess-panel-input,
+  .ai-clue-panel-reveal-btn,
+  .ai-guess-panel-submit {
+    font-size: 16px;
+  }
+
+  .ai-clue-panel-content {
+    padding: 0 36px 0 8px;
+  }
+
+  .ai-guess-panel-content {
+    padding: 0 8px 0 36px;
   }
 
   .ai-clue-panel-main {
@@ -563,6 +639,52 @@ table.Board {
 
   .ai-clue-panel-reveal-btn {
     align-self: flex-start;
+  }
+
+  .ai-guess-panel-entry {
+    flex-direction: column;
+  }
+
+  .ai-guess-panel-submit {
+    width: 100%;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .DiamondButtons.ai-mode {
+    --ai-mobile-row-gap: 8px;
+    --ai-mobile-bottom-gap: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ai-mobile-row-gap);
+    margin-top: 12px;
+    max-width: 327px;
+    width: 100%;
+    padding-bottom: 8px;
+  }
+
+  .DiamondButtons.ai-mode .RefreshTheme {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .DiamondButtons.ai-mode .ViewNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--ai-mobile-bottom-gap);
+    width: 100%;
+    margin-top: -10px;
+  }
+
+  .DiamondButtons.ai-mode .AiClue,
+  .DiamondButtons.ai-mode .AiGuess {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
   }
 }
 

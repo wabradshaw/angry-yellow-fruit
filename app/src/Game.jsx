@@ -6,7 +6,7 @@ import themes from './cards/baseThemes.json';
 
 function Game({ aiMode = false }) {
   return (
-    <div className="Game">
+    <div className={`Game${aiMode ? ' Game--ai' : ''}`}>
       <Board scale={3} opinionsList={opinions} descriptionsList={descriptions} themesList={themes} aiMode={aiMode}/>      
     </div>
   );

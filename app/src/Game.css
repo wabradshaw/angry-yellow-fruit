@@ -12,6 +12,10 @@
   .Game {
     margin-top: 120px;
   }
+
+  .Game--ai {
+    margin-top: 140px;
+  }
 }
 
 @media ((max-width: 1039px) or (max-height: 799px)) and (orientation: landscape){
